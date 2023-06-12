@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "ssl-backend"
+version = "0.1.0"
+description = ""
+authors = ["tsdocode <tsdocode@gmail.com>"]
+readme = "README.md"
+packages = [{include = "src"}]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+alembic = "^1.11.1"
+docker = "^6.1.3"
+pypiwin32 = "^223"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

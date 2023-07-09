@@ -1,0 +1,46 @@
+{
+    "id": 1,
+    "created_on": "2023-06-14T07:26:41.000Z",
+    "modified_on": "2023-06-14T07:26:41.000Z",
+    "owner_user_id": 1,
+    "domain_names": [
+        "app.localhost"
+    ],
+    "forward_host": "localhost",
+    "forward_port": 10000,
+    "access_list_id": 0,
+    "certificate_id": 0,
+    "ssl_forced": 0,
+    "caching_enabled": 0,
+    "block_exploits": 0,
+    "advanced_config": "",
+    "meta": {
+        "letsencrypt_agree": false,
+        "dns_challenge": false
+    },
+    "allow_websocket_upgrade": 0,
+    "http2_support": 0,
+    "forward_scheme": "http",
+    "enabled": 1,
+    "locations": [],
+    "hsts_enabled": 0,
+    "hsts_subdomains": 0,
+    "certificate": null,
+    "owner": {
+        "id": 1,
+        "created_on": "2023-06-14T06:51:44.000Z",
+        "modified_on": "2023-06-14T06:52:15.000Z",
+        "is_deleted": 0,
+        "is_disabled": 0,
+        "email": "tsdocode@gmail.com",
+        "name": "Administrator",
+        "nickname": "Admin",
+        "avatar": "//www.gravatar.com/avatar/ea39e0aae71c106f175202a354d472ee?default=mm",
+        "roles": [
+            "admin"
+        ]
+    },
+    "access_list": null,
+    "use_default_location": true,
+    "ipv6": true
+}

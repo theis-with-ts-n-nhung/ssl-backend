@@ -1,0 +1,14 @@
+credentials-file: /usr/local/etc/cloudflared/tunnel.json
+ingress:
+- hostname: ui.tsdocode.online
+  service: http://budibase:80
+- hostname: manager.tsdocode.online
+  service: http://app:81
+- hostname: studio.tsdocode.online
+  service: http://studio:8000
+- hostname: tracking.tsdocode.online
+  service: http://mlflow:5001
+- service: http_status:404
+- hostname: inference_tsdocode_4_mixmatch_resnet18_147_c9me.tsdocode.online
+  service: inference_tsdocode_4_mixmatch_resnet18_147_c9me:3000
+tunnel: vision-ssl

@@ -1,0 +1,9 @@
+tunnel: vision-ssl
+credentials-file: /usr/local/etc/cloudflared/tunnel.json
+
+ingress:
+  - hostname: ui.tsdocode.online
+    service: http://budibase:80
+  - hostname: manager.tsdocode.online
+    service: http://app:81
+  - service: http_status:404

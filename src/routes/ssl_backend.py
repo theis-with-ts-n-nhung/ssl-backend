@@ -19,10 +19,10 @@ router = APIRouter()
 docker_api = DockerAPI()
 
 proxy_api = NginxProxyManagerAPI(
-    host="http://127.0.0.1.nip.io",
-    port=81,
-    user="tsdocode@gmail.com",
-    password="2112001a"
+    host="http://tsdocode.online",
+    port=80,
+    user="admin@example.com",
+    password="changeme"
 )
 
 
@@ -91,9 +91,7 @@ def bg_register_ml_backend(
     )
 
     ml_backend = mlbackend_service.update_ml_backend_status(ml_backend, "created 💡")
-
     process.start()
-
     username = user.split("@")[0]
 
     domain_name = proxy_api.create_proxy_host(
@@ -102,13 +100,15 @@ def bg_register_ml_backend(
         forward_port=9090
     )
 
+    print(domain_name)
+
     health = health_check(domain_name)
 
     if health:
         link_result = api.link_ml_backend(
             name=backend_id,
             project_id=project_id,
-            ml_backend_url=f"http://{backend_id}:9090"
+            ml_backend_url=f"http://{domain_name}"
         )
 
         ml_backend.endpoint = "http://" + domain_name

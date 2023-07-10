@@ -10,13 +10,13 @@ def generate_random_string(length):
 
 
 def health_check(url, health="/health"):
-    attemps = 5
+    attemps = 10
     while attemps:
         response = requests.get(url="http://" + url + health)
         print(response.text)
         if response.status_code == 200:
             return True
         attemps -= 1
-        time.sleep(15)
+        time.sleep(3)
 
     return False

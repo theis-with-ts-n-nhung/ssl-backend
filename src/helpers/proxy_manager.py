@@ -65,6 +65,7 @@ class NginxProxyManagerAPI():
         payload['forward_port'] = forward_port
 
         proxy_response = requests.request("POST", endpoint, headers=headers, json=payload)
+        print(proxy_response.text)
 
         if proxy_response.status_code == 201:
             return domain_name
@@ -87,14 +88,14 @@ class NginxProxyManagerAPI():
 
 if __name__ == "__main__":
     api = NginxProxyManagerAPI(
-        host="http://127.0.0.1",
-        port=81,
-        user="tsdocode@gmail.com",
-        password="2112001a"
+        host="http://tsdocode.online",
+        port=80,
+        user="admin@example.com",
+        password="changeme"
     )
 
     response = api.create_proxy_host(
-        "app.127.0.0.1.nip.io",
+        "app",
         "budibase",
         80
     )

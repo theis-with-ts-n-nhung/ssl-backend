@@ -8,15 +8,12 @@ from src.helpers.label_studio import LabelStudioAPI
 from src.helpers.docker_api import DockerAPI
 from src.helpers.proxy_manager import NginxProxyManagerAPI
 from src.helpers.cloudflared import CloudflaredAPI
-from src.config.ssl_template import DOCKERFILES
 from src.utils import generate_random_string, health_check
 from src.database.provider import db
 
-from src.database.models.models import Model
 from src.database.repositories.models import ModelRepository
 from src.database.services.models import ModelService
 
-from src.database.models.ml_backends import MLBackend
 from src.database.repositories.ml_backends import MLBackendRepository
 from src.database.services.ml_backends import MLBackendService
 
@@ -30,10 +27,10 @@ docker_api = DockerAPI()
 cloudflaredAPI = CloudflaredAPI()
 
 proxy_api = NginxProxyManagerAPI(
-    host="http://127.0.0.1.nip.io",
-    port=81,
-    user="tsdocode@gmail.com",
-    password="2112001a"
+    host="http://tsdocode.online",
+    port=80,
+    user="admin@example.com",
+    password="changeme"
 )
 
 
@@ -117,29 +114,20 @@ def bg_build_inference_endpoint(
 
     username = user.split("@")[0]
 
-    # domain_name = proxy_api.create_proxy_host(
-    #     domain_name=inference_id,
-    #     forward_host=inference_id,
-    #     forward_port=3000
-    # )
+    domain_name = proxy_api.create_proxy_host(
+        domain_name=inference_id,
+        forward_host=inference_id,
+        forward_port=3000
+    )
 
     domain_name = f"{inference_id}.tsdocode.online"
-
-    cloudflaredAPI.add_host(
-        f"{inference_id}:3000",
-        domain_name
-    )
 
     health = health_check(domain_name, health="/healthz")
 
     if health:
-        inference.url = f"{inference_id}.tsdocode.online"
+        inference.url = domain_name
         inference.status = "ready ✅"
         service_service.update_service(inference)
-        cloudflaredAPI.add_host(
-            f"http://{inference_id}:3000",
-            f"{inference_id}.tsdocode.online"
-        )
 
 
 @router.post("/deploy", response_description="Deploy latest model of project")
@@ -176,32 +164,3 @@ async def list_ml_backend(
         content=results,
         status_code=200
     )
-
-
-# @router.get("/backend", response_description="Get ML Backend by ID")
-# async def get_ml_backend_by_id(
-#     ml_backend_id: str
-# ):
-#     result = mlbackend_service.get_ml_backend_by_id(ml_backend_id).__dict__
-#     result.pop("_sa_instance_state")
-#     result['created_at'] = result['created_at'].strftime("%m/%d/%Y, %H:%M:%S")
-
-#     return JSONResponse(
-#         content=result,
-#         status_code=200
-#     )
-
-
-# @router.delete("/backend", response_description="Delete ML Backend by ID")
-# async def delete_ml_backend_by_id(
-#     ml_backend_id: str
-# ):
-#     # TODO
-#     # stop container
-#     # unlink label studio
-#     # delete in db
-
-#     return JSONResponse(
-#         content="Implement soon",
-#         status_code=200
-#     )

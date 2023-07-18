@@ -78,6 +78,7 @@ def bg_register_ml_backend(
         "USER_ID": user,
         "PROJECT_ID": project_id,
         "VISION_SSL_API": "http://host.docker.internal:8001",
+        "RABBITMQ_HOST": "rabbitmq"
     }
 
     process = multiprocessing.Process(

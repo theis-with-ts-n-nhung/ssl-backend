@@ -71,14 +71,16 @@ def bg_register_ml_backend(
     process.join()
 
     environment = {
-        "HOSTNAME": "http://studio:8000",
+        "HOSTNAME": server,
         "API_KEY": token,
         "MLFLOW_URI": "http://mlflow:5001",
         "YATAI_URI": "http://yatai:3000",
         "USER_ID": user,
         "PROJECT_ID": project_id,
         "VISION_SSL_API": "http://host.docker.internal:8001",
-        "RABBITMQ_HOST": "rabbitmq"
+        "RABBITMQ_HOST": "rabbitmq",
+        "REDIS_HOST": "redis",
+        "REDIS_PORT": 5432
     }
 
     process = multiprocessing.Process(
